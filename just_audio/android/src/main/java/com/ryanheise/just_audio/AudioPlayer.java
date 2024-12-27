@@ -721,9 +721,12 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
         if (userAgent == null) {
             userAgent = Util.getUserAgent(context, "just_audio");
         }
+        Log.i(TAG, "Set larger timeouts...");
         DefaultHttpDataSource.Factory httpDataSourceFactory = new DefaultHttpDataSource.Factory()
             .setUserAgent(userAgent)
-            .setAllowCrossProtocolRedirects(true);
+            .setAllowCrossProtocolRedirects(true)
+            .setConnectTimeoutMs(30000)
+            .setReadTimeoutMs(30000);
         if (stringHeaders != null && stringHeaders.size() > 0) {
             httpDataSourceFactory.setDefaultRequestProperties(stringHeaders);
         }
